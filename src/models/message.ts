@@ -25,7 +25,7 @@ const Message = sequelize.define(
       },
     },
   },
-  { tableName: "message", createdAt: "created_at", updatedAt: "updated_at" }
+  { tableName: "messages", createdAt: "created_at", updatedAt: "updated_at" }
 );
 
 export default Message;

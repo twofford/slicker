@@ -22,7 +22,7 @@ const ChannelMembership = sequelize.define(
     },
   },
   {
-    tableName: "channel_membership",
+    tableName: "channel_memberships",
     createdAt: "created_at",
     updatedAt: "updated_at",
   }

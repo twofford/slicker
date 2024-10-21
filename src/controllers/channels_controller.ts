@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import Channel from "../models/channel";
-import ChannelMembership from "../models/channel_membership";
+import { Channel, ChannelMembership } from "../models/models";
 
 async function getUserChannels(
   req: Request,
@@ -12,6 +11,7 @@ async function getUserChannels(
     const userChannels = await Channel.findAll({
       include: {
         model: ChannelMembership,
+        as: "channel_memberships",
         required: true,
         where: {
           user_id: userId,

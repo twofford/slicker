@@ -23,7 +23,7 @@ const Channel = sequelize.define(
       },
     },
   },
-  { tableName: "channel", createdAt: "created_at", updatedAt: "updated_at" }
+  { tableName: "channels", createdAt: "created_at", updatedAt: "updated_at" }
 );
 
 export default Channel;

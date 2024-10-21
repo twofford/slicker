@@ -30,7 +30,7 @@ const User = sequelize.define(
       unique: true,
     },
   },
-  { tableName: "user", createdAt: "created_at", updatedAt: "updated_at" }
+  { tableName: "users", createdAt: "created_at", updatedAt: "updated_at" }
 );
 
 export default User;
