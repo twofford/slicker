@@ -1,15 +1,19 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import routes from "./routes";
+import sequelize from "./orm";
+import { getUserChannels } from "./controllers/channels_controller";
+import { getChannelMessages } from "./controllers/messages_controller";
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3000;
+sequelize.sync({ force: true });
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+app.get("/", (_: Request, res: Response) => {
+  res.send("S L I C K");
 });
+app.get(routes["getUserChannels"], getUserChannels);
+app.get(routes["getChannelMessages"], getChannelMessages);
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
+app.listen(3000);
