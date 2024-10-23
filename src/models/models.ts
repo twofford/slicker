@@ -18,8 +18,18 @@ User.hasMany(Message, {
   foreignKey: "user_id",
 });
 
+Message.belongsTo(User, {
+  as: "users",
+  foreignKey: "user_id",
+});
+
 Channel.hasMany(Message, {
   as: "messages",
+  foreignKey: "channel_id",
+});
+
+Message.belongsTo(Channel, {
+  as: "channels",
   foreignKey: "channel_id",
 });
 
