@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, json } from "express";
+import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import routes from "./routes";
 import { getUserChannels } from "./controllers/channels_controller";
