@@ -1,21 +1,19 @@
 import express, { Express, Request, Response } from "express";
+import { WebSocket } from "ws";
 import dotenv from "dotenv";
-import routes from "./routes";
-import { getUserChannels } from "./controllers/channels_controller";
-import { getChannelMessages } from "./controllers/messages_controller";
-import { createUser, getAllUsers } from "./controllers/users_controller";
+import { IncomingMessage } from "http";
 
 dotenv.config();
 
 const app: Express = express();
-const jsonParser = express.json()
+const wss = new WebSocket.Server({ port: 8080 });
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("S L I C K");
+wss.on("connection", (ws) => {
+  console.log("A new client connected");
+
+  ws.on("message", (msg: IncomingMessage) => {
+    console.log("New message received:", msg.toString());
+  });
 });
-app.get(routes["getUserChannels"], getUserChannels);
-app.get(routes["getChannelMessages"], getChannelMessages);
-app.get(routes["getAllUsers"], getAllUsers);
-app.post(routes["createUser"], jsonParser, createUser)
 
 app.listen(3000);
