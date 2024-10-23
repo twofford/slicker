@@ -9,9 +9,11 @@ async function getUserChannels(
   try {
     const userId = req.params.userId;
     const userChannels = await Channel.findAll({
+      attributes: ["title", "topic", "description", "type"],
       include: {
         model: ChannelMembership,
         as: "channel_memberships",
+        attributes: [],
         required: true,
         where: {
           user_id: userId,
