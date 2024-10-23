@@ -1,19 +1,21 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response, json } from "express";
 import dotenv from "dotenv";
 import routes from "./routes";
-import sequelize from "./orm";
-import { seedDatabase } from "./seeds";
 import { getUserChannels } from "./controllers/channels_controller";
 import { getChannelMessages } from "./controllers/messages_controller";
+import { createUser, getAllUsers } from "./controllers/users_controller";
 
 dotenv.config();
-seedDatabase(sequelize.getQueryInterface());
 
 const app: Express = express();
-app.get("/", (_: Request, res: Response) => {
+const jsonParser = express.json()
+
+app.get("/", (req: Request, res: Response) => {
   res.send("S L I C K");
 });
 app.get(routes["getUserChannels"], getUserChannels);
 app.get(routes["getChannelMessages"], getChannelMessages);
+app.get(routes["getAllUsers"], getAllUsers);
+app.post(routes["createUser"], jsonParser, createUser)
 
 app.listen(3000);

@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "debug": "nodemon --inspect-brk src/index.ts",
+    "seed": "npx ts-node src/seeds/seed_users.ts && npx ts-node src/seeds/seed_channels.ts && ts-node src/seeds/seed_messages.ts && ts-node src/seeds/seed_channel_memberships.ts"
   },
   "keywords": [],
   "author": "",
