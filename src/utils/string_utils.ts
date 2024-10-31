@@ -1,4 +1,4 @@
-import { BinaryLike } from "crypto";
+import { BinaryLike, randomBytes } from "crypto";
 
 function convertStringToBinary(str: String): BinaryLike {
   return str
@@ -7,4 +7,8 @@ function convertStringToBinary(str: String): BinaryLike {
     .join(" ");
 }
 
-export { convertStringToBinary }
+function createSessionToken(): String{
+  return randomBytes(64).toString("hex")
+}
+
+export { convertStringToBinary, createSessionToken }

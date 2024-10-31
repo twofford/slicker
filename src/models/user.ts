@@ -24,10 +24,8 @@ const User = sequelize.define(
       },
       allowNull: false,
     },
-
     session_token: {
       type: DataTypes.STRING,
-      unique: true,
     },
   },
   { tableName: "users", createdAt: "created_at", updatedAt: "updated_at" }
