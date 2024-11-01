@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../orm";
-import { hash } from "crypto";
-import { convertStringToBinary } from "../utils/string_utils";
+import { hashString } from "../utils/string_utils";
 
 const User = sequelize.define(
   "User",
@@ -16,11 +15,8 @@ const User = sequelize.define(
     },
     password: {
       type: DataTypes.STRING,
-      set(value: String) {
-        this.setDataValue(
-          "password",
-          hash("sha256", convertStringToBinary(value))
-        );
+      set(value: string) {
+        this.setDataValue("password", hashString(value, "sha256"));
       },
       allowNull: false,
     },

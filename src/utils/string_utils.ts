@@ -1,14 +1,18 @@
-import { BinaryLike, randomBytes } from "crypto";
+import { BinaryLike, randomBytes, hash } from "crypto";
 
-function convertStringToBinary(str: String): BinaryLike {
+function convertStringToBinary(str: string): BinaryLike {
   return str
     .split("")
     .map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
     .join(" ");
 }
 
-function createSessionToken(): String{
-  return randomBytes(64).toString("hex")
+function createSessionToken(): string {
+  return randomBytes(64).toString("hex");
 }
 
-export { convertStringToBinary, createSessionToken }
+function hashString(val: string, hashFunc: string): string {
+  return hash(hashFunc, convertStringToBinary(val));
+}
+
+export { convertStringToBinary, createSessionToken, hashString };

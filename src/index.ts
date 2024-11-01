@@ -8,7 +8,7 @@
 
 import { WebSocket } from "ws";
 import http, { IncomingMessage, ServerResponse } from "http";
-import { createUser, loginUser } from "./controllers/users_controller"
+import { createUser, loginUser, logoutUser } from "./controllers/users_controller"
 
 async function routeAuthRequests(req: IncomingMessage, res: ServerResponse){
   const path: string = req["url"] || "";
@@ -25,6 +25,7 @@ async function routeAuthRequests(req: IncomingMessage, res: ServerResponse){
         break;
       case "/logout":
         // Log the user out
+        await logoutUser(req, res);
         break;
       default:
         // Unrecognized auth path
