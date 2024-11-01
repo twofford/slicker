@@ -32,7 +32,7 @@ async function routeAuthRequests(req: IncomingMessage, res: ServerResponse){
         const validPaths = ["/new", "/login", "/logout"];
         res.setHeader("ALLOW", validPaths);
         res.statusCode = 400;
-        res.write(
+        res.end(
           JSON.stringify({
             error: "Bad Request",
             message: `This server does not respond to requests at path ${path}. Valid paths: ${validPaths.join(
@@ -46,14 +46,13 @@ async function routeAuthRequests(req: IncomingMessage, res: ServerResponse){
     // Invalid HTTP method
     res.setHeader("ALLOW", "POST");
     res.statusCode = 405;
-    res.write(
+    res.end(
       JSON.stringify({
         error: "Method Not Allowed",
         message: `Endpoint ${path} only accepts POST requests. You sent a ${method} request.`,
       })
     );
   }
-  res.end();
 }
 
 const authServer = http.createServer(routeAuthRequests);
