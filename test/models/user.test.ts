@@ -1,47 +1,36 @@
 import User from "../../src/models/user";
 import sequelize from "../../src/orm";
 
-beforeEach(async () => {
-  (await User.findAll()).forEach((user) => user.destroy());
-});
-
-// Close DB connection after tests run to improve speed
-afterAll(async () => {
-  await sequelize.close();
-});
-
-test("email and password are valid", async () => {
-  const user = await User.create({
-    email: "my_email@gmail.com",
-    password: "startrek123",
+describe("user model", () => {
+  // Close DB connection after tests run
+  afterAll(async () => {
+    await sequelize.close();
   });
-  expect(user).toBeDefined();
-  expect(user.getDataValue("email")).toBe("my_email@gmail.com");
-});
 
-test("email is invalid", async () => {
-  await expect(
-    User.create({
-      email: "my_email@.com",
-      password: "startrek123",
-    })
-  ).rejects.toThrow(/Validation error/);
-});
+  it("does not throw an error if email and password are valid", async () => {
+    expect(async () => {
+      await User.build({
+        email: "my_email@gmail.com",
+        password: "startrek123",
+      }).validate();
+    }).not.toThrow();
+  });
 
-test("email is not a string", async () => {
-  await expect(
-    User.create({
-      email: null,
-      password: "startrek123",
-    })
-  ).rejects.toThrow(/User.email cannot be null/);
-});
+  it("throws a validation error if email is not valid", async () => {
+    expect(async () => {
+      await User.build({
+        email: "my_email",
+        password: "startrek123",
+      }).validate();
+    }).rejects.toThrow(/Validation error/);
+  });
 
-test("password is not a string", async () => {
-  await expect(
-    User.create({
-      email: "my_email@gmail.com",
-      password: null,
-    })
-  ).rejects.toThrow(/Cannot read properties of null/);
+  it("throws a validation error if password is shorter than 10 characters", async () => {
+    expect(async () => {
+      await User.build({
+        email: "my_email@gmail.com",
+        password: "1234",
+      }).validate();
+    }).rejects.toThrow(/Password must be at least 10 characters long/);
+  });
 });

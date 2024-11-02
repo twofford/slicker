@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, ValidationError, ValidationErrorItem } from "sequelize";
 import sequelize from "../orm";
 import { hashString } from "../utils/string_utils";
 
@@ -16,7 +16,11 @@ const User = sequelize.define(
     password: {
       type: DataTypes.STRING,
       set(value: string) {
-        this.setDataValue("password", hashString(value, "sha256"));
+        if (value.length < 10) {
+          throw new Error("Password must be at least 10 characters long");
+        } else {
+          this.setDataValue("password", hashString(value, "sha256"));
+        }
       },
       allowNull: false,
     },
