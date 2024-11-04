@@ -1,4 +1,3 @@
-// import { Request, Response, NextFunction } from "express";
 import { IncomingMessage, ServerResponse } from "http";
 import { User } from "../models/models";
 import { getBody } from "../utils/http_utils";
@@ -32,7 +31,7 @@ async function createUser(req: IncomingMessage, res: ServerResponse) {
       session_token: createSessionToken(),
     });
     if (user == null) {
-      throw "Something went wrong.";
+      throw "Something went wrong";
     }
     // Must do this because Sequelize won't allow you to choose which fields are returned
     ["id", "updated_at", "created_at", "password"].forEach(
@@ -44,8 +43,8 @@ async function createUser(req: IncomingMessage, res: ServerResponse) {
         user: user,
       })
     );
-  } catch (err: any) {
-    // TODO: More robust error handling
+  } catch (err) {
+    // TODO: more robust error handling
     res.statusCode = 400;
     res.end(JSON.stringify(err));
   }
@@ -71,8 +70,8 @@ async function loginUser(req: IncomingMessage, res: ServerResponse) {
       res.statusCode = 200;
       res.end(JSON.stringify({ user: user }));
     }
-  } catch (err: any) {
-    // TODO: More robust error handling
+  } catch (err) {
+    // TODO: more robust error handling
     res.statusCode = 400;
     res.end(JSON.stringify(err));
   }
@@ -98,6 +97,7 @@ async function logoutUser(req: IncomingMessage, res: ServerResponse) {
       res.end(JSON.stringify({ user: user }));
     }
   } catch (err) {
+    // TODO: more robust error handling
     res.statusCode = 400;
     res.end(JSON.stringify(err));
   }

@@ -15,20 +15,27 @@ const User = sequelize.define(
     },
     password: {
       type: DataTypes.STRING,
-      set(value: string) {
-        if (value.length < 10) {
-          throw new Error("Password must be at least 10 characters long");
-        } else {
-          this.setDataValue("password", hashString(value, "sha256"));
-        }
-      },
       allowNull: false,
     },
     session_token: {
       type: DataTypes.STRING,
     },
   },
-  { tableName: "users", createdAt: "created_at", updatedAt: "updated_at" }
+  {
+    tableName: "users",
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    hooks: {
+       afterValidate(user) {
+        const password = user.getDataValue("password");
+        if (password.length < 10) {
+          throw new Error("Password must be at least 10 characters long");
+        } else {
+          user.setDataValue("password", hashString(password, "sha256"))
+        }
+      },
+    },
+  }
 );
 
 export default User;

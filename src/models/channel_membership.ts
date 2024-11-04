@@ -6,6 +6,7 @@ import User from "./user";
 const ChannelMembership = sequelize.define(
   "ChannelMembership",
   {
+    // TODO: check channel exists in beforeCreate hook
     channel_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -14,6 +15,7 @@ const ChannelMembership = sequelize.define(
         key: "id",
       },
     },
+    // TODO: check user exists in beforeCreate hook
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
