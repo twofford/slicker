@@ -56,7 +56,7 @@ async function routeAuthRequests(req: IncomingMessage, res: ServerResponse){
 }
 
 const authServer = http.createServer(routeAuthRequests);
-authServer.listen(3000);
+authServer.listen(5432);
 
 const chatServer = new WebSocket.Server({ port: 8080 });
 

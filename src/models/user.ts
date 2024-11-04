@@ -1,4 +1,4 @@
-import { DataTypes, ValidationError, ValidationErrorItem } from "sequelize";
+import { DataTypes } from "sequelize";
 import sequelize from "../orm";
 import { hashString } from "../utils/string_utils";
 

@@ -2,7 +2,7 @@ import User from "../../src/models/user";
 import sequelize from "../../src/orm";
 
 describe("user model", () => {
-  // Close DB connection after tests run
+  // Close db connection after tests run
   afterAll(async () => {
     await sequelize.close();
   });
@@ -11,7 +11,7 @@ describe("user model", () => {
     expect(async () => {
       await User.build({
         email: "my_email@gmail.com",
-        password: "startrek123",
+        password: "startrek1234",
       }).validate();
     }).not.toThrow();
   });
@@ -20,7 +20,7 @@ describe("user model", () => {
     expect(async () => {
       await User.build({
         email: "my_email",
-        password: "startrek123",
+        password: "startrek1234",
       }).validate();
     }).rejects.toThrow(/Validation error/);
   });
