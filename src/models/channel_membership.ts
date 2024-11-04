@@ -8,6 +8,7 @@ const ChannelMembership = sequelize.define(
   {
     channel_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: Channel,
         key: "id",
@@ -15,6 +16,7 @@ const ChannelMembership = sequelize.define(
     },
     user_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: User,
         key: "id",
