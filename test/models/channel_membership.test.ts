@@ -22,6 +22,6 @@ describe("channel_membership model", () => {
         channel_id: 123,
         user_id: null,
       }).validate();
-    }).rejects.toThrow(/user_id cannot be null/)
-  })
+    }).rejects.toThrow(/user_id cannot be null/);
+  });
 });
