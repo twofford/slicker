@@ -24,4 +24,6 @@ describe("channel_membership model", () => {
       }).validate();
     }).rejects.toThrow(/user_id cannot be null/);
   });
+
+  // TODO: add tests for checking if user, channel exist (must also add to actual model lol)
 });

@@ -6,7 +6,6 @@ import sequelize from "../../src/api/orm";
 describe("message model", () => {
   beforeAll(async () => {
     await Channel.create({ id: 123, title: "test", type: "public" });
-    // THE PROBLEM IS BELOW. EVERYTHING RUNS FINE WITHOUT THIS.
     await User.create({
       id: 123,
       email: "my_email@gmail.com",
