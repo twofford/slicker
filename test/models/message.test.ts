@@ -4,7 +4,7 @@ import User from "../../src/api/models/user";
 import sequelize from "../../src/api/orm";
 
 describe("message model", () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await Channel.create({ id: 123, title: "test", type: "public" });
     await User.create({
       id: 123,
@@ -13,19 +13,22 @@ describe("message model", () => {
     });
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await Channel.destroy({ where: { id: 123 } });
     await User.destroy({ where: { id: 123 } });
+  });
+
+  afterAll(async () => {
     await sequelize.close();
   });
 
   it("does not throw an error if all fields are valid", async () => {
     expect(async () => {
-      await Message.build({
+      await Message.create({
         body: "Testing! Testing!",
         user_id: 123,
         channel_id: 123,
-      }).validate();
+      });
     }).not.toThrow();
   });
 
@@ -66,7 +69,7 @@ describe("message model", () => {
         user_id: 456,
         channel_id: 123,
       });
-    }).rejects.toThrow(/User does not exist/);
+    }).rejects.toThrow(/violates foreign key constraint/);
   });
 
   it("throws an error if the channel does not exist", async () => {
@@ -76,6 +79,6 @@ describe("message model", () => {
         user_id: 123,
         channel_id: 456,
       });
-    }).rejects.toThrow(/Channel does not exist/);
+    }).rejects.toThrow(/violates foreign key constraint/);
   });
 });

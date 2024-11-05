@@ -2,6 +2,7 @@ import Channel from "./channel";
 import Message from "./message";
 import User from "./user";
 import ChannelMembership from "./channel_membership";
+import { CHAR } from "sequelize";
 
 Channel.hasMany(ChannelMembership, {
   as: "channel_memberships",
@@ -31,6 +32,16 @@ Channel.hasMany(Message, {
 Message.belongsTo(Channel, {
   as: "channels",
   foreignKey: "channel_id",
+});
+
+ChannelMembership.belongsTo(Channel, {
+  as: "channels",
+  foreignKey: "channel_id",
+});
+
+ChannelMembership.belongsTo(User, {
+  as: "users",
+  foreignKey: "user_id",
 });
 
 export { Channel, Message, User, ChannelMembership };

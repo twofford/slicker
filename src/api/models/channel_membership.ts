@@ -6,7 +6,6 @@ import User from "./user";
 const ChannelMembership = sequelize.define(
   "ChannelMembership",
   {
-    // TODO: check channel exists in beforeCreate hook
     channel_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,7 +14,6 @@ const ChannelMembership = sequelize.define(
         key: "id",
       },
     },
-    // TODO: check user exists in beforeCreate hook
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -29,6 +27,22 @@ const ChannelMembership = sequelize.define(
     tableName: "channel_memberships",
     createdAt: "created_at",
     updatedAt: "updated_at",
+    // hooks: {
+    //   async beforeCreate(channelMembership) {
+    //     const channel = Channel.findOne({
+    //       where: { id: channelMembership.getDataValue("channel_id") },
+    //     });
+    //     if (channel == null) {
+    //       throw new Error("Channel does not exist");
+    //     }
+    //     const user = User.findOne({
+    //       where: { id: channelMembership.getDataValue("user_id") },
+    //     });
+    //     if (user == null) {
+    //       throw new Error("User does not exist");
+    //     }
+    //   },
+    // },
   }
 );
 
