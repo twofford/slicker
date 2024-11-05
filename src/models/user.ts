@@ -26,7 +26,7 @@ const User = sequelize.define(
     createdAt: "created_at",
     updatedAt: "updated_at",
     hooks: {
-       afterValidate(user) {
+      afterValidate(user) {
         const password = user.getDataValue("password");
         if (password.length < 10) {
           throw new Error("Password must be at least 10 characters long");
