@@ -3,7 +3,7 @@ import {
   Message,
   User,
   ChannelMembership,
-} from "../src/models/models";
+} from "../src/api/models/models";
 
 async function setupDatabase(models: any) {
   models.forEach(async (model: any) => {

@@ -1,5 +1,5 @@
-import ChannelMembership from "../../src/models/channel_membership";
-import sequelize from "../../src/orm";
+import ChannelMembership from "../../src/api/models/channel_membership";
+import sequelize from "../../src/api/orm";
 
 describe("channel_membership model", () => {
   // Close db connection after tests run

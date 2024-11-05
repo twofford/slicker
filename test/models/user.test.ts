@@ -1,5 +1,5 @@
-import User from "../../src/models/user";
-import sequelize from "../../src/orm";
+import User from "../../src/api/models/user";
+import sequelize from "../../src/api/orm";
 
 describe("user model", () => {
   // Close db connection after tests run

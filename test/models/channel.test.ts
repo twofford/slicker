@@ -1,5 +1,5 @@
-import Channel from "../../src/models/channel";
-import sequelize from "../../src/orm";
+import Channel from "../../src/api/models/channel";
+import sequelize from "../../src/api/orm";
 
 describe("channel model", () => {
   // Close db connection after tests run

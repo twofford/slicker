@@ -1,7 +1,7 @@
-import Message from "../../src/models/message";
-import Channel from "../../src/models/channel";
-import User from "../../src/models/user";
-import sequelize from "../../src/orm";
+import Message from "../../src/api/models/message";
+import Channel from "../../src/api/models/channel";
+import User from "../../src/api/models/user";
+import sequelize from "../../src/api/orm";
 
 describe("message model", () => {
   beforeAll(async () => {
