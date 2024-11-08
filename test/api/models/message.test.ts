@@ -1,27 +1,31 @@
-import Message from "../../src/api/models/message";
-import Channel from "../../src/api/models/channel";
-import User from "../../src/api/models/user";
-import sequelize from "../../src/api/orm";
+import Channel from "../../../src/api/models/channel";
+import Message from "../../../src/api/models/message";
+import User from "../../../src/api/models/user";
+import sequelize from "../../../src/api/orm";
+
+beforeAll(async () => {
+  await sequelize.sync({ force: true });
+});
+
+afterAll(async () => {
+  await sequelize.close();
+});
+
+beforeEach(async () => {
+  await sequelize.truncate({ cascade: true });
+  await Channel.create({ id: 123, title: "test", type: "public" });
+  await User.create({
+    id: 123,
+    email: "test_email@gmail.com",
+    password: "startrek1234",
+  });
+});
+
+afterEach(async () => {
+  await sequelize.truncate({ cascade: true });
+});
 
 describe("message model", () => {
-  beforeEach(async () => {
-    await Channel.create({ id: 123, title: "test", type: "public" });
-    await User.create({
-      id: 123,
-      email: "my_email@gmail.com",
-      password: "startrek1234",
-    });
-  });
-
-  afterEach(async () => {
-    await Channel.destroy({ where: { id: 123 } });
-    await User.destroy({ where: { id: 123 } });
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
-
   it("does not throw an error if all fields are valid", async () => {
     expect(async () => {
       await Message.create({

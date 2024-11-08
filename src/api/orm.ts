@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import * as dotenv from "dotenv";
+import { Channel, Message, User, ChannelMembership } from "./models/models"
 
 dotenv.config();
 
@@ -10,7 +11,8 @@ const dbport = process.env.DBPORT;
 const dbname = process.env.DBNAME;
 
 const sequelize = new Sequelize(
-  `postgres://${username}:${password}@${host}:${dbport}/${dbname}`
+  `postgres://${username}:${password}@${host}:${dbport}/${dbname}`,
+  { logging: false }
 );
 
 export default sequelize;

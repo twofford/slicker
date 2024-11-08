@@ -2,7 +2,6 @@ import Channel from "./channel";
 import Message from "./message";
 import User from "./user";
 import ChannelMembership from "./channel_membership";
-import { CHAR } from "sequelize";
 
 Channel.hasMany(ChannelMembership, {
   as: "channel_memberships",

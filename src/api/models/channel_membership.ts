@@ -27,22 +27,6 @@ const ChannelMembership = sequelize.define(
     tableName: "channel_memberships",
     createdAt: "created_at",
     updatedAt: "updated_at",
-    // hooks: {
-    //   async beforeCreate(channelMembership) {
-    //     const channel = Channel.findOne({
-    //       where: { id: channelMembership.getDataValue("channel_id") },
-    //     });
-    //     if (channel == null) {
-    //       throw new Error("Channel does not exist");
-    //     }
-    //     const user = User.findOne({
-    //       where: { id: channelMembership.getDataValue("user_id") },
-    //     });
-    //     if (user == null) {
-    //       throw new Error("User does not exist");
-    //     }
-    //   },
-    // },
   }
 );
 
