@@ -1,6 +1,5 @@
 import { Sequelize } from "sequelize";
 import * as dotenv from "dotenv";
-import { Channel, Message, User, ChannelMembership } from "./models/models"
 
 dotenv.config();
 
