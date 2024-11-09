@@ -5,8 +5,8 @@ import { createSessionToken, hashString } from "../utils/string_utils";
 
 /**
  * @deprecated
- * @param req 
- * @param res 
+ * @param req
+ * @param res
  */
 async function getAllUsers(req: IncomingMessage, res: ServerResponse) {
   try {
@@ -17,7 +17,7 @@ async function getAllUsers(req: IncomingMessage, res: ServerResponse) {
     res.end(
       JSON.stringify({
         users: users,
-      })
+      }),
     );
   } catch (err: any) {
     res.statusCode = 400;
@@ -40,13 +40,13 @@ async function createUser(req: IncomingMessage, res: ServerResponse) {
     }
     // Must do this because Sequelize won't allow you to choose which fields are returned
     ["id", "updated_at", "created_at", "password"].forEach(
-      (field) => delete user.dataValues[field]
+      (field) => delete user.dataValues[field],
     );
     res.statusCode = 201;
     res.end(
       JSON.stringify({
         user: user,
-      })
+      }),
     );
   } catch (err: any) {
     // TODO: more robust error handling
@@ -70,7 +70,7 @@ async function loginUser(req: IncomingMessage, res: ServerResponse) {
       user.setDataValue("session_token", createSessionToken());
       await user.save();
       ["id", "updated_at", "created_at", "password"].forEach(
-        (field) => delete user.dataValues[field]
+        (field) => delete user.dataValues[field],
       );
       res.statusCode = 200;
       res.end(JSON.stringify({ user: user }));
@@ -96,7 +96,7 @@ async function logoutUser(req: IncomingMessage, res: ServerResponse) {
       user.setDataValue("session_token", null);
       await user.save();
       ["id", "updated_at", "created_at", "password"].forEach(
-        (field) => delete user.dataValues[field]
+        (field) => delete user.dataValues[field],
       );
       res.statusCode = 200;
       res.end(JSON.stringify({ user: user }));

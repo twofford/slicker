@@ -24,4 +24,4 @@ chatServer.once("connection", (ws, req) => {
   });
 });
 
-export { authServer, chatServer }
+export { authServer, chatServer };

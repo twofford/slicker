@@ -20,7 +20,7 @@ async function seedUsers() {
         updated_at: now,
       },
     ]);
-    const userCount = await User.count()
+    const userCount = await User.count();
     console.log(`Seeded ${userCount} users`);
   } catch (err) {
     console.log(err);

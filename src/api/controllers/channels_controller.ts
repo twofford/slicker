@@ -4,7 +4,7 @@ import { Channel, ChannelMembership } from "../models/models";
 async function getUserChannels(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const userId = req.params.userId;

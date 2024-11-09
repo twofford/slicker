@@ -4,7 +4,7 @@ import { Message, User } from "../models/models";
 async function getChannelMessages(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const channelId = req.params.channelId;

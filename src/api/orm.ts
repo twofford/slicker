@@ -11,7 +11,7 @@ const dbname = process.env.DBNAME;
 
 const sequelize = new Sequelize(
   `postgres://${username}:${password}@${host}:${dbport}/${dbname}`,
-  { logging: false }
+  { logging: false },
 );
 
 export default sequelize;

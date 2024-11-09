@@ -31,11 +31,11 @@ const User = sequelize.define(
         if (password.length < 10) {
           throw new Error("Password must be at least 10 characters long");
         } else {
-          user.setDataValue("password", hashString(password, "sha256"))
+          user.setDataValue("password", hashString(password, "sha256"));
         }
       },
     },
-  }
+  },
 );
 
 export default User;

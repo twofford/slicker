@@ -31,9 +31,9 @@ async function routeAuthRequests(req: IncomingMessage, res: ServerResponse) {
           JSON.stringify({
             error: "Bad Request",
             message: `This server does not respond to requests at path ${path}. Valid paths: ${validPaths.join(
-              ", "
+              ", ",
             )}`,
-          })
+          }),
         );
         break;
     }
@@ -45,7 +45,7 @@ async function routeAuthRequests(req: IncomingMessage, res: ServerResponse) {
       JSON.stringify({
         error: "Method Not Allowed",
         message: `Endpoint ${path} only accepts POST requests. You sent a ${method} request.`,
-      })
+      }),
     );
   }
 }

@@ -20,8 +20,8 @@ async function seedChannels() {
         updated_at: now,
       },
     ]);
-    const channelCount = await Channel.count()
-    console.log(`Seeded ${channelCount} channels`)
+    const channelCount = await Channel.count();
+    console.log(`Seeded ${channelCount} channels`);
   } catch (err) {
     console.log(err);
   }

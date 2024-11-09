@@ -8,7 +8,8 @@
     "start": "node build/index.js",
     "dev": "nodemon src/index.ts",
     "debug": "nodemon --inspect-brk src/index.ts",
-    "seed": "npx ts-node src/seeds/seed_users.ts && npx ts-node src/seeds/seed_channels.ts && ts-node src/seeds/seed_messages.ts && ts-node src/seeds/seed_channel_memberships.ts"
+    "seed": "npx ts-node src/seeds/seed_users.ts && npx ts-node src/seeds/seed_channels.ts && ts-node src/seeds/seed_messages.ts && ts-node src/seeds/seed_channel_memberships.ts",
+    "format": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "keywords": [],
   "author": "",
@@ -35,6 +36,7 @@
     "@types/supertest": "^6.0.2",
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.7",
+    "prettier": "^3.3.3",
     "sequelize-cli": "^6.6.2",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",

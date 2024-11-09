@@ -42,7 +42,7 @@ describe("channel_membership model", () => {
         user_id: 123,
       });
     }).rejects.toThrow(
-      /(?=.*violates foreign key constraint)(?=.*channel_memberships_channel_id_fkey)/
+      /(?=.*violates foreign key constraint)(?=.*channel_memberships_channel_id_fkey)/,
     );
   });
 
@@ -53,7 +53,7 @@ describe("channel_membership model", () => {
         user_id: 456,
       });
     }).rejects.toThrow(
-      /(?=.*violates foreign key constraint)(?=.*channel_memberships_user_id_fkey)/
+      /(?=.*violates foreign key constraint)(?=.*channel_memberships_user_id_fkey)/,
     );
   });
 });
