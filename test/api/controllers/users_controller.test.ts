@@ -71,6 +71,10 @@ describe("loginUser", () => {
     const body = await JSON.parse(res.text);
     expect(res.statusCode).toBe(200);
     expect(body.user.session_token).toBeDefined();
+    const loggedInUser = await User.findOne({
+      where: { email: "test_for_login@gmail.com" },
+    });
+    expect(loggedInUser!.getDataValue("session_token")).not.toBeNull();
   });
 
   it("does not return the user's hashed password", async () => {
@@ -90,12 +94,48 @@ describe("loginUser", () => {
       email: "test_for_login@gmail.com",
       password: "startrek1234",
     });
-    const res = await request(authServer)
-      .post("/login")
-      .send({ email: "non_existent_email@gmail.com", password: "startrek1234" });
+    const res = await request(authServer).post("/login").send({
+      email: "non_existent_email@gmail.com",
+      password: "startrek1234",
+    });
     expect(res.statusCode).toBe(400);
-    expect(res.text).toMatch(/There was an error logging you in. Make sure you spelled your email and password correctly./);
+    expect(res.text).toMatch(
+      /There was an error logging you in. Make sure you spelled your email and password correctly./
+    );
   });
 });
 
-describe("logoutUser", () => {});
+describe("logoutUser", () => {
+  it("sets the user's session token to null when given a valid email and session token", async () => {
+    await User.create({
+      email: "test_for_logout@gmail.com",
+      password: "startrek1234",
+      session_token: "1234567890",
+    });
+    const res = await request(authServer).post("/logout").send({
+      email: "test_for_logout@gmail.com",
+      session_token: "1234567890",
+    });
+    const body = await JSON.parse(res.text);
+    expect(res.statusCode).toBe(200);
+    expect(body.user.session_token).toBeNull();
+    const loggedOutUser = await User.findOne({
+      where: { email: "test_for_logout@gmail.com" },
+    });
+    expect(loggedOutUser!.getDataValue("session_token")).toBeNull();
+  });
+
+  it("returns an error when not given a valid email and/or session token", async () => {
+    await User.create({
+      email: "test_for_logout@gmail.com",
+      password: "startrek1234",
+      session_token: "1234567890",
+    });
+    const res = await request(authServer).post("/logout").send({
+      email: "test_for_logout@gmail.com",
+      session_token: "a_bad_session_token",
+    });
+    expect(res.statusCode).toBe(400);
+    expect(res.text).toMatch(/There was an error logging you out/);
+  });
+});
