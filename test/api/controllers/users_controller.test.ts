@@ -2,6 +2,7 @@ import http, { Server } from "http";
 import request from "supertest";
 import sequelize from "../../../src/api/orm";
 import routeAuthRequests from "../../../src/api/routers/auth_router";
+import User from "../../../src/api/models/user";
 
 let authServer: Server;
 
@@ -58,6 +59,43 @@ describe("createUser", () => {
   });
 });
 
-describe("loginUser", () => {});
+describe("loginUser", () => {
+  it("returns a session token when given a valid email and password", async () => {
+    await User.create({
+      email: "test_for_login@gmail.com",
+      password: "startrek1234",
+    });
+    const res = await request(authServer)
+      .post("/login")
+      .send({ email: "test_for_login@gmail.com", password: "startrek1234" });
+    const body = await JSON.parse(res.text);
+    expect(res.statusCode).toBe(200);
+    expect(body.user.session_token).toBeDefined();
+  });
+
+  it("does not return the user's hashed password", async () => {
+    await User.create({
+      email: "test_for_login@gmail.com",
+      password: "startrek1234",
+    });
+    const res = await request(authServer)
+      .post("/login")
+      .send({ email: "test_for_login@gmail.com", password: "startrek1234" });
+    const body = await JSON.parse(res.text);
+    expect(body.password).toBeUndefined();
+  });
+
+  it("returns an error when the user isn't found", async () => {
+    await User.create({
+      email: "test_for_login@gmail.com",
+      password: "startrek1234",
+    });
+    const res = await request(authServer)
+      .post("/login")
+      .send({ email: "non_existent_email@gmail.com", password: "startrek1234" });
+    expect(res.statusCode).toBe(400);
+    expect(res.text).toMatch(/There was an error logging you in. Make sure you spelled your email and password correctly./);
+  });
+});
 
 describe("logoutUser", () => {});
