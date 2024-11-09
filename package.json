@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "build/index.js",
   "scripts": {
-    "test": "jest --verbose --runInBand",
+    "test": "jest --verbose --runInBand --detectOpenHandles --forceExit",
     "build": "npx tsc",
     "start": "node build/index.js",
     "dev": "nodemon src/index.ts",
@@ -32,6 +32,7 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.7.6",
+    "@types/supertest": "^6.0.2",
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.7",
     "sequelize-cli": "^6.6.2",

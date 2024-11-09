@@ -26,7 +26,6 @@ afterEach(async () => {
 });
 
 describe("channel_membership model", () => {
-
   it("does not throw an error if channel and user exist", async () => {
     expect(async () => {
       await ChannelMembership.create({

@@ -3,6 +3,11 @@ import { User } from "../models/models";
 import { getBody } from "../utils/http_utils";
 import { createSessionToken, hashString } from "../utils/string_utils";
 
+/**
+ * @deprecated
+ * @param req 
+ * @param res 
+ */
 async function getAllUsers(req: IncomingMessage, res: ServerResponse) {
   try {
     const users = await User.findAll({
@@ -31,7 +36,7 @@ async function createUser(req: IncomingMessage, res: ServerResponse) {
       session_token: createSessionToken(),
     });
     if (user == null) {
-      throw "Something went wrong";
+      throw "Something went wrong.";
     }
     // Must do this because Sequelize won't allow you to choose which fields are returned
     ["id", "updated_at", "created_at", "password"].forEach(
@@ -43,10 +48,10 @@ async function createUser(req: IncomingMessage, res: ServerResponse) {
         user: user,
       })
     );
-  } catch (err) {
+  } catch (err: any) {
     // TODO: more robust error handling
     res.statusCode = 400;
-    res.end(JSON.stringify(err));
+    res.end(JSON.stringify(err.message));
   }
 }
 
