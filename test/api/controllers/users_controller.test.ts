@@ -100,7 +100,7 @@ describe("loginUser", () => {
     });
     expect(res.statusCode).toBe(400);
     expect(res.text).toMatch(
-      /There was an error logging you in. Make sure you spelled your email and password correctly./
+      /There was an error logging you in. Make sure you spelled your email and password correctly./,
     );
   });
 });
